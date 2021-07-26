@@ -16,8 +16,10 @@ public:
     Cliente(string n, string a);
     string nombre;
     string apellido;
+    string codigo;
     string getNombre();
     string getApellido();
+    string getCodigo();
 };
 
 #endif //PROYECTPS_CLIENTE_H

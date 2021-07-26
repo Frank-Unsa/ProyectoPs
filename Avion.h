@@ -5,6 +5,7 @@
 #ifndef PROYECTPS_AVION_H
 #define PROYECTPS_AVION_H
 
+
 #include <iostream>
 #include <string>
 #include "Fecha.h"
@@ -27,8 +28,10 @@ public:
     void retirarPasajero(int n);
     bool verAsientoOcupado(int n);
     int verCantidadDePasajeros();
+    bool marcarAsiento(int number);
 
 };
+
 
 
 #endif //PROYECTPS_AVION_H

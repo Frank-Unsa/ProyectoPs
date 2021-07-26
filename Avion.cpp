@@ -56,3 +56,10 @@ bool Avion:: verAsientoOcupado(int n){
     }
     return false;
 }
+bool Avion::marcarAsiento(int number){   //   true -> ocupado       false -> desocupado
+    if(!verAsientoOcupado(number)){
+        asientos[number-1]= true;
+        return true;
+    }
+    return false;
+}

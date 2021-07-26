@@ -17,8 +17,8 @@ public:
     Boleta(Cliente u, Avion a, int asiento);
     string nombre;
     string apellido;
+    string codigo;
     int asiento;
-    int contador=0;
     string aerolinea;
     Fecha fechaV;
     Hora horaPartida;
@@ -26,6 +26,8 @@ public:
     int costo;
     void generarBoleta();
     void exportarBoleta();
+    string getcodigo();
 };
+
 
 #endif //PROYECTPS_BOLETA_H
