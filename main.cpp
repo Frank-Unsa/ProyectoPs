@@ -98,7 +98,7 @@ void inicioSesion()
     do
     {
         system("cls");
-        cout << "============ Inicio de Sesión ============" << endl;
+        cout << "============ Inicio de Sesion ============" << endl;
         cout << "\t\t\tLOGIN DE USUARIO" << endl;
         cout << "\t\t\t----------------" << endl;
         cout << "\n\tUsuario: ";
@@ -191,20 +191,19 @@ void mostrarMenu()
     cout << "==================================================" << endl;
     cout << " Ingrese una opcion: ";
     cin >> opc;
-    string nom;
-    string dia;
+    string nom;//nombre de la aerolinea
     bool valido= false;
-    string  name;
-    string apell;
+    string  name;//nombre del usuario a registrar
+    string apell;//apellido del usuario a registrar
     Cliente nuevo;
-    int posicion;
-    int asiento;
-    string code;
-    int post=0;
-    bool valor=false;
+    int posicion;//nos ayuda a identificar la posicion del avion seleccionado
+    int asiento;//Numero de asiento a registrar
+    string code;//codigo de la persona que se genera
+    int post=0;//posicion en la que se encuntra la boleta seleccionada
+    bool valor=false;//nos ayudara a ordenar las boletas luego de eliminar una de ellas
     int contad;
     char eliminar[100];
-    string eli;
+    string eli;//nombre del archivo a eliminar
     int tamanio;
     switch (opc)
     {
@@ -233,7 +232,8 @@ void mostrarMenu()
                 cin>>apell;
                 cout<< "Ingrese su numero su numero de Asiento [1-100]: ";
                 cin>>asiento;
-                afr.getFlota()[posicion];
+                //afr.getFlota()[posicion] obtener el avion
+                //verificamos si el asiento esta o no ocupado
                 while(true){
                     if(afr.getFlota()[posicion].marcarAsiento(asiento)== true){
                         break;
@@ -243,13 +243,11 @@ void mostrarMenu()
                     }
                 }
                 Cliente n1(name,apell);
-
                 Boleta b1(n1, afr.getFlota()[posicion], asiento);
                 b1.generarBoleta();
                 b1.exportarBoleta();
                 boletasCreadas[count] = b1;
                 count++;
-
 
             }else{
                 cout<<"Avion no encontrado";
@@ -266,6 +264,10 @@ void mostrarMenu()
             mostrarMenu();
             break;
         case 3: //eliminar reservacion
+
+
+
+
             contad=count;
             cout<<"Ingrese el codigo (los primeros caracteres de su nombre y apellido) " <<endl;
             cin >> code;
@@ -276,30 +278,37 @@ void mostrarMenu()
                 }
                 post++;
             }
+            //
+
+
             if(valor){
-                    for(i=post;i<contad;i++)
-                    {
-                        boletasCreadas[i]=boletasCreadas[i+1];
+
+                for (int j = 0; j < sizeof (afr.getFlota()); ++j) {
+
+                    if(afr.getFlota()[j].verNombre()==boletasCreadas[post].aerolinea){
+                        posicion=j;
+                        valido=true;
+                        break;
                     }
-                    count--;
+                }
+                //eliminacion del asiento
+                afr.getFlota()[posicion].retirarPasajero(boletasCreadas[post].asiento);
+
+                for(i=post;i<contad;i++){
+                    boletasCreadas[i]=boletasCreadas[i+1];
+                }
+                count--;
+
+                eli="Reserva Nro "+ to_string(post+1)+".txt";
+                tamanio = eli.length();
+                eliminar[tamanio + 1];
+                strcpy(eliminar, eli.c_str());//copiar una cadena dentro de otra cadena
+                remove(eliminar);//elimina un archivo
+                system("pause");
+
             }else{
-                cout<<"Codigo no encontrado";
+                cout<<"Codigo no encontrado"<< endl;
             }
-            cout<<"posicion"<<post<<endl;
-            eli="Reserva Nro "+ to_string(post+1)+".txt";
-            // assigning value to string s
-
-
-            tamanio = eli.length();
-
-            // declaring character array
-             eliminar[tamanio + 1];
-
-            // copying the contents of the
-            // string to char array
-            strcpy(eliminar, eli.c_str());
-            remove(eliminar);
-            system("pause");
             cout << "Presione cualquier tecla para volver al menu.." << endl;
             mostrarMenu();
             break;
@@ -310,13 +319,4 @@ void mostrarMenu()
             cout << "Opción desconocida!" << endl;
             break;
     }
-}
-void eliminarReserva(){
-    /*for (i=1; i<TAM; i++)
-        for (j=0 ; j<TAM - 1; j++)
-            if (lista[j] > lista[j+1])
-                temp = lista[j];
-                lista[j] = lista[j+1];
-                lista[j+1] = temp;*/
-
 }

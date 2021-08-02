@@ -10,6 +10,7 @@ Boleta::Boleta() {
 
 }
 Boleta::Boleta(Cliente u, Avion a, int as) {
+
     nombre=u.getNombre();
     apellido=u.getApellido();
     codigo=u.getCodigo();
